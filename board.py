@@ -4,10 +4,10 @@ import random
 class Board:
     def __init__(self):
         self.spaces = []
-        self.size = len(self.spaces)
+        self.size = len(self.spaces) #Why is this needed? Past Drew, what were you thinking?
         
 class SpaceType(Enum):
-    PROPERTY = 1
+    BUYABLE = 1
     CHANCE = 2
     COMMUNITYCHEST = 3
     GO = 4
@@ -33,44 +33,42 @@ class Space:
     def __init__(self, name: str, spaceType: SpaceType):
         self.name = name
         self.spaceType = spaceType
-
-class Property(Space):
-    def __init__(self, name: str, price: int, colorgroup: ColorGroup, improvementCost: int, rentList: []):
-        Space.__init__(self, name, SpaceType.PROPERTY)
+        
+class BuyableSpace(Space):
+    def __init__(self, name: str, price: int, colorgroup: ColorGroup, rentList: []):
+        Space.__init__(self, name, SpaceType.BUYABLE)#Maybe consider adding other SpaceTypes for buyable/utility/railroad
         self.name = name
         self.price = price
         self.colorgroup = colorgroup
-        self.improvementCost = improvementCost
         self.rentList = rentList
-        self.improvementLevel = 0
         self.mortgaged = False
         self.mortgagevalue = price/2
-    
-    def getCurrentRent(self):
-        return self.rentList[self.improvementLevel] #TODO: Account for unimproved properties where all the color group is owned (double value)
-    
-    def improve(self):
-        self.improvementLevel += 1
+        
+    def getCurrentRent(self, level):
+        return self.rentList[level] #TODO: Account for unimproved properties where all the color group is owned (double value)
     
     def mortgage(self):
         self.mortgaged = True
     
     def unmortgage(self):
         self.mortgaged = False
-
-class Railroad(Property):
-    def __init__(self, name: str):
-        Property.__init__(self, name, 200, ColorGroup.RAILROAD, 0, [200])
-    
-    def improve(self):
-        return TypeError('Railroads cannot be improved')
-
-class Utility(Property):
-    def __init__(self, name: str):
-        Property.__init__(self, name, 150, ColorGroup.UTILITY, 0, [150])
+        
+class Property(BuyableSpace):
+    def __init__(self, name: str, price: int, colorgroup: ColorGroup, improvementCost: int, rentList: []):
+        BuyableSpace.__init__(self, name, price, colorgroup, rentList)
+        self.improvementCost = improvementCost
+        self.improvementLevel = 0
         
     def improve(self):
-        return TypeError('Utilities cannot be improved')
+        self.improvementLevel += 1
+
+class Railroad(BuyableSpace):
+    def __init__(self, name: str, improvementCost: int):
+        BuyableSpace.__init__(self, name, 200, ColorGroup.RAILROAD, [200])
+
+class Utility(BuyableSpace):
+    def __init__(self, name: str):
+        BuyableSpace.__init__(self, name, 150, ColorGroup.UTILITY, [150])
     
 class Chance(Space):
     def __init__(self):
@@ -83,7 +81,7 @@ class Chance(Space):
 class CommunityChest(Space):
     def __init__(self):
         Space.__init__(self, "Community Chest", SpaceType.COMMUNITYCHEST)
-        cards = []
+        self.cards = []
         
     def shuffle(self):
         random.shuffle(self.cards)
@@ -155,9 +153,7 @@ spaces = [
     ]
     
 '''TODO:
-    -Add the rest of Space Types
     -Board Display
     -Moving/Get Spaces for some other file
     -Chance/Community Chest Cards Data Entry
-    -Property Cards Data Entry
 '''
