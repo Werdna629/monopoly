@@ -17,4 +17,9 @@ class Player:
         self.properties.add(p)
         
     def mortgage(self, p: Property):
-        pass
+        p.mortgage()
+        self.money += p.mortgagevalue
+        
+    def unmortgage(self, p: Property):
+        p.unmortgage()
+        self.money -= p.mortgagevalue*1.1

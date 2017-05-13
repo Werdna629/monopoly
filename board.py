@@ -3,8 +3,48 @@ import random
 
 class Board:
     def __init__(self):
-        self.spaces = []
+        self.spaces = [
+            Go(),
+            Property("Mediterranean Avenue", 60, ColorGroup.PURPLE, 50, [2, 10, 30, 90, 160, 250]),
+            Property("Baltic Avenue", 60, ColorGroup.PURPLE, 50, [4, 20, 60, 180, 320, 450]),
+            IncomeTax(),
+            Railroad("Reading Railroad"),
+            Property("Oriental Avenue", 100, ColorGroup.LIGHTBLUE, 50, [6, 30, 90, 270, 400, 550]),
+            Chance(),
+            Property("Vermont Avenue", 100, ColorGroup.LIGHTBLUE, 50, [6, 30, 90, 270, 400, 550]),
+            Property("Connecticut Avenue", 120, ColorGroup.LIGHTBLUE, 50, [8, 40, 100, 300, 450, 600]),
+            Jail(),
+            Property("St. Charles Place", 140, ColorGroup.PINK, 100, [10, 50, 150, 450, 625, 750]),
+            Utility("Electric Company"),
+            Property("States Avenue", 140, ColorGroup.PINK, 100, [10, 50, 150, 450, 625, 750]),
+            Property("Virginia Avenue", 160, ColorGroup.PINK, 100, [12, 60, 180, 500, 700]),
+            Railroad("Pennsylvania Railroad"),
+            Property("St. James Place", 180, ColorGroup.ORANGE, 100, [14, 70, 200, 550, 750, 950]),
+            CommunityChest(),
+            Property("Tennessee Avenue", 180, ColorGroup.ORANGE, 100, [14, 70, 200, 550, 750, 950]),
+            Property("New York Avenue", 200, ColorGroup.ORANGE, 100, [16, 80, 220, 600, 800, 1000]),
+            FreeParking(),
+            Property("Kentucky Avenue", 220, ColorGroup.RED, 150, [18, 90, 250, 700, 875, 1050]),
+            Chance(),
+            Property("Indiana Avenue", 220, ColorGroup.RED, 150, [18, 90, 250, 700, 875, 1050]),
+            Property("Illinois Avenue", 240, ColorGroup.RED, 150, [20, 100, 300, 750, 925, 1100]),
+            Railroad("B. & O. Railroad"),
+            Property("Atlantic Avenue", 260, ColorGroup.YELLOW, 150, [22, 110, 330, 800, 975, 1150]),
+            Property("Ventnor Avenue", 260, ColorGroup.YELLOW, 150, [22, 110, 330, 800, 975, 1150]),
+            Utility("Water Works"),
+            Property("Marvin Gardens", 280, ColorGroup.YELLOW, 150, [24, 120, 360, 850, 1025, 1200]),
+            GoToJail(),
+            Property("Pacific Avenue", 300, ColorGroup.GREEN, 200, [26, 130, 390, 900, 1100, 1275]),
+            Property("North Carolina Avenue", 300, ColorGroup.GREEN, 200, [26, 130, 390, 900, 1100, 1275]),
+            Property("Pennsylvania Avenue", 320, ColorGroup.GREEN, 200, [28, 150, 450, 1000, 1000, 1200, 1400]),
+            Railroad("Short Line Railroad"),
+            Chance(),
+            Property("Park Place", 350, ColorGroup.DARKBLUE, 200, [35, 175, 500, 1100, 1300, 1500]),
+            LuxuryTax(),
+            Property("Boardwalk", 400, ColorGroup.DARKBLUE, 200, [50, 200, 600, 1400, 1700, 2000]),
+        ]
         self.size = len(self.spaces) #Why is this needed? Past Drew, what were you thinking?
+        #Add ChancePile/CommunityChestPile classes or something like that
         
 class SpaceType(Enum):
     BUYABLE = 1
@@ -109,48 +149,6 @@ class IncomeTax(Space):
 class LuxuryTax(Space):
     def __init__(self):
         Space.__init__(self, "Luxury Tax", SpaceType.LUXURYTAX)
-        
-        
-spaces = [
-    Go(),
-    Property("Mediterranean Avenue", 60, ColorGroup.PURPLE, 50, [2, 10, 30, 90, 160, 250]),
-    Property("Baltic Avenue", 60, ColorGroup.PURPLE, 50, [4, 20, 60, 180, 320, 450]),
-    IncomeTax(),
-    Railroad("Reading Railroad"),
-    Property("Oriental Avenue", 100, ColorGroup.LIGHTBLUE, 50, [6, 30, 90, 270, 400, 550]),
-    Chance(),
-    Property("Vermont Avenue", 100, ColorGroup.LIGHTBLUE, 50, [6, 30, 90, 270, 400, 550]),
-    Property("Connecticut Avenue", 120, ColorGroup.LIGHTBLUE, 50, [8, 40, 100, 300, 450, 600]),
-    Jail(),
-    Property("St. Charles Place", 140, ColorGroup.PINK, 100, [10, 50, 150, 450, 625, 750]),
-    Utility("Electric Company"),
-    Property("States Avenue", 140, ColorGroup.PINK, 100, [10, 50, 150, 450, 625, 750]),
-    Property("Virginia Avenue", 160, ColorGroup.PINK, 100, [12, 60, 180, 500, 700]),
-    Railroad("Pennsylvania Railroad"),
-    Property("St. James Place", 180, ColorGroup.ORANGE, 100, [14, 70, 200, 550, 750, 950]),
-    CommunityChest(),
-    Property("Tennessee Avenue", 180, ColorGroup.ORANGE, 100, [14, 70, 200, 550, 750, 950]),
-    Property("New York Avenue", 200, ColorGroup.ORANGE, 100, [16, 80, 220, 600, 800, 1000]),
-    FreeParking(),
-    Property("Kentucky Avenue", 220, ColorGroup.RED, 150, [18, 90, 250, 700, 875, 1050]),
-    Chance(),
-    Property("Indiana Avenue", 220, ColorGroup.RED, 150, [18, 90, 250, 700, 875, 1050]),
-    Property("Illinois Avenue", 240, ColorGroup.RED, 150, [20, 100, 300, 750, 925, 1100]),
-    Railroad("B. & O. Railroad"),
-    Property("Atlantic Avenue", 260, ColorGroup.YELLOW, 150, [22, 110, 330, 800, 975, 1150]),
-    Property("Ventnor Avenue", 260, ColorGroup.YELLOW, 150, [22, 110, 330, 800, 975, 1150]),
-    Utility("Water Works"),
-    Property("Marvin Gardens", 280, ColorGroup.YELLOW, 150, [24, 120, 360, 850, 1025, 1200]),
-    GoToJail(),
-    Property("Pacific Avenue", 300, ColorGroup.GREEN, 200, [26, 130, 390, 900, 1100, 1275]),
-    Property("North Carolina Avenue", 300, ColorGroup.GREEN, 200, [26, 130, 390, 900, 1100, 1275]),
-    Property("Pennsylvania Avenue", 320, ColorGroup.GREEN, 200, [28, 150, 450, 1000, 1000, 1200, 1400]),
-    Railroad("Short Line Railroad"),
-    Chance(),
-    Property("Park Place", 350, ColorGroup.DARKBLUE, 200, [35, 175, 500, 1100, 1300, 1500]),
-    LuxuryTax(),
-    Property("Boardwalk", 400, ColorGroup.DARKBLUE, 200, [50, 200, 600, 1400, 1700, 2000]),
-    ]
     
 '''TODO:
     -Board Display
