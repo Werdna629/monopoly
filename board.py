@@ -77,9 +77,9 @@ class Space:
 class BuyableSpace(Space):
     def __init__(self, name: str, price: int, colorgroup: ColorGroup, rentList: []):
         Space.__init__(self, name, SpaceType.BUYABLE)#Maybe consider adding other SpaceTypes for buyable/utility/railroad
-        self.name = name
         self.price = price
         self.colorgroup = colorgroup
+        self.isOwned = False
         self.rentList = rentList
         self.mortgaged = False
         self.mortgagevalue = price/2
@@ -101,6 +101,9 @@ class Property(BuyableSpace):
         
     def improve(self):
         self.improvementLevel += 1
+        
+    def getCurrentRent(self):
+        return self.rentList[self.improvementLevel]
 
 class Railroad(BuyableSpace):
     def __init__(self, name: str, improvementCost: int):
